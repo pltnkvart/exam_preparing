@@ -1,0 +1,6 @@
+# ninja log v5
+500	533	1706288202350235999	threads	b1e9e0d8ff6fb8c0
+2	500	1706288202315984937	CMakeFiles/threads.dir/threads.cpp.o	9c9fdb41120b50ce
+0	21	1706110204192574608	CMakeFiles/exam_preparing.dir/threads.cpp.o	14cb20a45b92d1e3
+0	51	1706294240526916739	build.ninja	4682b79069326908
+0	27	1706110189853559955	CMakeFiles/exam_preparing.dir/main.cpp.o	3a4c9511ff76f9d9

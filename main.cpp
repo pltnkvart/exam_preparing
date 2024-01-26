@@ -12,7 +12,13 @@ public:
 
     virtual ~Message() = default;
 
-    bool getIsRead() { return isRead; }
+    bool getIsRead() const { return isRead; }
+
+    void setIsRead() { isRead = !isRead; }
+
+    std::string getTime() const { return time; }
+
+    int getSenderId() const { return sender_id; }
 };
 
 class Photo : public Message {
@@ -108,9 +114,9 @@ public:
 
     void printUnread(std::ostream &os) {
         for (auto msg: msgs) {
-            if (!msg->isRead) {
+            if (!msg->getIsRead()) {
                 msg->print(os);
-                msg->isRead = true;
+                msg->setIsRead();
             }
         }
     }
@@ -155,7 +161,7 @@ public:
         for (auto chat: app.chats) {
             os << "Chat with " << chat->getContact().getLogin() << ":" << std::endl;
             for (auto message: chat->getMsgs()) {
-                os << message->sender_id << " (" << message->time << "): ";
+                os << message->getSenderId() << " (" << message->getTime() << "): ";
                 message->print(os);
             }
         }
@@ -175,10 +181,9 @@ int main() {
     Chat *chat1 = new Chat(contact1);
     Chat *chat2 = new Chat(contact2);
 
-    Text *textMessage1 = new Text(42, "12:00", "Hello!");
-    Photo *photoMessage1 = new Photo(42, "12:05", 1001);
-    Audio *audioMessage1 = new Audio(42, "12:10", 2001, "vibe!");
-
+    Message *textMessage1 = new Text(42, "12:00", "Hello!");
+    Message *photoMessage1 = new Photo(42, "12:05", 1001);
+    Message *audioMessage1 = new Audio(42, "12:10", 2001, "vibe!");
 
     chat1->addMessage(textMessage1);
     chat1->addMessage(photoMessage1);
@@ -188,7 +193,6 @@ int main() {
     Photo *photoMessage2 = new Photo(2123, "12:23", 1001);
     chat2->addMessage(textMessage2);
     chat2->addMessage(photoMessage2);
-
 
     std::vector<Chat *> chats;
     chats.push_back(chat1);
